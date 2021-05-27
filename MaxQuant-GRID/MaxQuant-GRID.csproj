@@ -9,10 +9,20 @@
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Copyright>University of Liverpool</Copyright>
+    <PackageId>MaxQuant-GRID</PackageId>
+    <Authors>Andrew Collins</Authors>
+    <Company>University of Liverpool</Company>
+    <Product>MaxQuant-GRID</Product>
+    <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,7 +57,7 @@
     <None Update="script\Install.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="config\config.txt">
+    <None Update="config\default.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="rabbitmq\rabbitmq.def">
@@ -56,5 +66,9 @@
     <None Update="script\StartRabbitMQ.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="example\pbs\" />
   </ItemGroup>
 </Project>

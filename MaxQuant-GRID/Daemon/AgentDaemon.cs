@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore
+namespace MaxQuantTaskCore.Daemon
 {
-    internal class MiddleMan : Daemon
+    internal class AgentDaemon : Daemon
     {
         public string Command { get; internal set; }
         public string CorrelationId { get; private set; }

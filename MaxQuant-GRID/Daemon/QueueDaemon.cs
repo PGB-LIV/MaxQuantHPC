@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace MaxQuantTaskCore
+namespace MaxQuantTaskCore.Daemon
 {
     internal class QueueDaemon : Daemon
     {

@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using MaxQuantTaskCore.Daemon;
+using System;
 using System.Reflection;
 
 namespace MaxQuantTaskCore
@@ -77,7 +77,7 @@ namespace MaxQuantTaskCore
             }
 
             ProgramResult programResult;
-            MiddleMan middleMan = new MiddleMan();
+            AgentDaemon middleMan = new AgentDaemon();
 
             middleMan.Start();
 

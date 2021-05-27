@@ -1,11 +1,9 @@
 ﻿using RabbitMQ.Client;
 using System;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore
+namespace MaxQuantTaskCore.Daemon
 {
     internal abstract class Daemon
     {
