@@ -1,0 +1,11 @@
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\config.txt
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\Install.sh
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\rabbitmq.def
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\StartRabbitMQ.sh
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\MaxQuantTaskCore.dll
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\MaxQuantTaskCore.deps.json
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\MaxQuantTaskCore.runtimeconfig.json
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\MaxQuantTaskCore.pdb
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\Newtonsoft.Json.dll
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\RabbitMQ.Client.dll
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Release\publish\GRID\System.Threading.Channels.dll

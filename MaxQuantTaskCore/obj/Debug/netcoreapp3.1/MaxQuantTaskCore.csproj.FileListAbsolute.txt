@@ -1,0 +1,13 @@
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.exe
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.deps.json
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.runtimeconfig.json
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.runtimeconfig.dev.json
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.dll
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\bin\Debug\netcoreapp3.1\MaxQuantTaskCore.pdb
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.csprojAssemblyReference.cache
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.AssemblyInfoInputs.cache
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.AssemblyInfo.cs
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.csproj.CoreCompileInputs.cache
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.dll
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.pdb
+F:\Development\MaxQuantTaskCore\MaxQuantTaskCore\obj\Debug\netcoreapp3.1\MaxQuantTaskCore.genruntimeconfig.cache

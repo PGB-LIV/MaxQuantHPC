@@ -1,0 +1,12 @@
+{
+  "ServerUri": "https://pgb.liv.ac.uk/sonar/",
+  "Organization": null,
+  "ProjectKey": "MaxQuantMP",
+  "ProjectName": "MaxQuantMP",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AV3C9qoRj1fw7xu_jHEB",
+      "ProfileTimestamp": "2018-08-06T10:00:41Z"
+    }
+  }
+}

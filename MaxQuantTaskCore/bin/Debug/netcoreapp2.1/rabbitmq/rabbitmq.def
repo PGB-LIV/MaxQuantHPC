@@ -1,0 +1,22 @@
+Bootstrap: library
+from: centos:7
+
+%environment
+  LC_ALL=en_GB.UTF-8
+%help
+
+  #Description of the container
+	Creates a CentOS 7 image with RabbitMQ
+
+%post
+  yum -y install epel-release
+  yum -y install rabbitmq-server
+  
+  localedef -f UTF-8 -i en_GB en_GB.UTF-8
+
+%startscript
+  
+  # Start the server instance by default on localhost:5672 on node rabbit@root
+
+  rabbitmq-server
+  rabbitmqctl status
