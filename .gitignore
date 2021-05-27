@@ -1,3 +1,6 @@
 MaxQuantTaskCore/obj/
 MaxQuantTaskCore/bin/
 .sonarlint/
+MaxQuant-GRID/bin/
+MaxQuant-GRID/obj/
+.vs/
