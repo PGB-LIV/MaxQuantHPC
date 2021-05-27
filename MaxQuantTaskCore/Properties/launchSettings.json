@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MaxQuantTaskCore": {
+      "commandName": "Executable"
+    }
+  }
+}
