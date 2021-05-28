@@ -4,15 +4,15 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore.Daemon
+namespace MaxQuantTaskCore.Agent
 {
-    internal class ListenDaemon : Daemon
+    internal class ConsumerAgent : Agent
     {
         private bool isShutdown = false;
 
         internal void Start()
         {
-            this.Connect();
+            Connect();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Out.WriteLine("Connected to RabbitMQ Server. Requesting work...");
 

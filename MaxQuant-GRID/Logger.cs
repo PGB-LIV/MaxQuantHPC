@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace MaxQuantTaskCore
 {
@@ -43,6 +41,11 @@ namespace MaxQuantTaskCore
         {
             LogFile.WriteLine("[" + DateTime.UtcNow.ToString() + "] " + text);
             LogFile.Flush();
+        }
+
+        ~Logger()
+        {
+            LogFile.Close();
         }
     }
 }

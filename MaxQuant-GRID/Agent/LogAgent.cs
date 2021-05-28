@@ -2,9 +2,9 @@
 using System;
 using System.Text;
 
-namespace MaxQuantTaskCore.Daemon
+namespace MaxQuantTaskCore.Agent
 {
-    internal class LogDaemon : Daemon
+    internal class LogAgent : Agent
     {
         internal void DumpLogs()
         {

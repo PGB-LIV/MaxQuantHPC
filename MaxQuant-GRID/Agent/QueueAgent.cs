@@ -2,9 +2,9 @@
 using System;
 using System.Text;
 
-namespace MaxQuantTaskCore.Daemon
+namespace MaxQuantTaskCore.Agent
 {
-    internal class QueueDaemon : Daemon
+    internal class QueueAgent : Agent
     {
         internal void DumpQueue()
         {

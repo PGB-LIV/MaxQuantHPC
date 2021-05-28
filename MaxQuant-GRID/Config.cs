@@ -82,7 +82,7 @@ namespace MaxQuantTaskCore
                         break;
 
                     default:
-                        // TODO: Do nothing. For now.
+                        // Do nothing. For now.
                         break;
                 }
             }

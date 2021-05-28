@@ -3,9 +3,9 @@ using System;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore.Daemon
+namespace MaxQuantTaskCore.Agent
 {
-    internal abstract class Daemon
+    internal abstract class Agent
     {
         protected Config Config = Config.Instance;
 
@@ -23,7 +23,7 @@ namespace MaxQuantTaskCore.Daemon
             {
                 try
                 {
-                    ConnectionFactory factory = new ConnectionFactory() { HostName = Config.HostName, Port = Config.Port };
+                    ConnectionFactory factory = new ConnectionFactory() { HostName = Config.HostName, Port = Config.Port, AutomaticRecoveryEnabled = true };
                     return factory.CreateConnection();
                 }
                 catch (Exception e)
@@ -54,6 +54,16 @@ namespace MaxQuantTaskCore.Daemon
               exclusive: false, autoDelete: false, arguments: null);
         }
 
+        internal void Stop()
+        {
+            this.Disconnect();
+        }
+
+        protected void Disconnect()
+        {
+            Connection.Close();
+        }
+
         internal string FormatCommand(string[] args)
         {
             StringBuilder sbCmd = new StringBuilder();
@@ -71,6 +81,14 @@ namespace MaxQuantTaskCore.Daemon
             }
 
             return sbCmd.ToString();
+        }
+
+        ~Agent()
+        {
+            if (Connection.IsOpen)
+            {
+                Disconnect();
+            }
         }
     }
 }

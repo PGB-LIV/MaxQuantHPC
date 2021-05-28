@@ -4,19 +4,21 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore.Daemon
+namespace MaxQuantTaskCore.Agent
 {
-    internal class AgentDaemon : Daemon
+    internal class PublisherAgent : Agent
     {
         public string Command { get; internal set; }
         public string CorrelationId { get; private set; }
         public string ReplyChannelName { get; private set; }
 
-        private readonly byte[] secretKey = Guid.NewGuid().ToByteArray();
+        private byte[] ReplyKey { get; } = Guid.NewGuid().ToByteArray();
+
+        private byte[] CorrelationKey { get; } = Guid.NewGuid().ToByteArray();
 
         internal void Start()
         {
-            this.Connect();
+            Connect();
             Logger.Instance.Write("Connected to RabbitMQ Server");
         }
 
@@ -38,6 +40,7 @@ namespace MaxQuantTaskCore.Daemon
 
             Logger.Instance.Write("Sending to: " + JobQueueName + ", ID: " + CorrelationId + ", Reply-to: " + ReplyChannelName);
             Channel.BasicPublish(exchange: "", routingKey: JobQueueName, basicProperties: enqueueProperties, body: commandBytes);
+
             Logger.Instance.Write("Sent.");
         }
 
@@ -73,8 +76,9 @@ namespace MaxQuantTaskCore.Daemon
 
                 Channel.BasicAck(result.DeliveryTag, false);
                 Logger.Instance.Write("Acked.");
-                Channel.QueueDelete(ReplyChannelName);
-                Logger.Instance.Write("Channel deleted.");
+
+                uint messagesDeleted = Channel.QueueDelete(ReplyChannelName, true, true);
+                Logger.Instance.Write("Channel deleted. " + messagesDeleted + " Messages deleted.");
 
                 if (programResult.ExitCode != 0)
                 {
@@ -89,7 +93,7 @@ namespace MaxQuantTaskCore.Daemon
 
         private string CreateReplyChannel(string command)
         {
-            string replyChannelName = Config.ChannelPrefix + GetHash(secretKey, command);
+            string replyChannelName = Config.ChannelPrefix + GetHash(ReplyKey, command);
 
             Channel.QueueDeclare(queue: replyChannelName, durable: false,
               exclusive: false, autoDelete: true, arguments: null);
@@ -99,15 +103,15 @@ namespace MaxQuantTaskCore.Daemon
 
         private string GetCorrelationId(string command)
         {
-            return GetHash(secretKey, command);
+            return GetHash(CorrelationKey, command);
         }
 
-        private static string GetHash(byte[] secretKey, string plainText)
+        private static string GetHash(byte[] key, string plainText)
         {
             using (HMAC hashAlgorithm = HMAC.Create("HMACMD5"))
             {
-                hashAlgorithm.Key = secretKey;
-                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(plainText);
+                hashAlgorithm.Key = key;
+                byte[] inputBytes = Encoding.ASCII.GetBytes(plainText);
                 byte[] hashBytes = hashAlgorithm.ComputeHash(inputBytes);
 
                 // Convert the byte array to hexadecimal string

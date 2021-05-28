@@ -1,4 +1,4 @@
-﻿using MaxQuantTaskCore.Daemon;
+﻿using MaxQuantTaskCore.Agent;
 using System;
 using System.Reflection;
 
@@ -8,12 +8,6 @@ namespace MaxQuantTaskCore
     {
         private static int Main(string[] args)
         {
-            if (Environment.GetEnvironmentVariable("MQG_CONFIG_PATH") == null)
-            {
-                System.Console.Error.WriteLine("Error! You must set the environment MQG_CONFIG_PATH to the location of your config.txt");
-                return 2;
-            }
-
             try
             {
                 return HandleArgs(args);
@@ -33,18 +27,25 @@ namespace MaxQuantTaskCore
 
         private static int HandleArgs(string[] args)
         {
-            if (args.Length == 0 || args[0] == "--help")
+            if (Environment.GetEnvironmentVariable("MQG_CONFIG_PATH") == null)
             {
-                Console.Out.WriteLine("MaxQuant-GRID v" + Assembly.GetEntryAssembly().GetName().Version);
-                Console.Out.WriteLine("--agent to start worker node agent");
-                Console.Out.WriteLine("--errorLog to dump error log");
-                Console.Out.WriteLine("--queue to dump error log");
-                Console.Out.WriteLine("--config to dump config");
-                return 0;
+                System.Console.Error.WriteLine("Error! You must set the environment MQG_CONFIG_PATH to the location of your settings.conf");
+                return 2;
             }
-            else if (args[0] == "--errorLog")
+
+            if (args.Length < 3)
             {
-                LogDaemon logs = new LogDaemon();
+                return ParseLocalArg(args);
+            }
+
+            return StartPublisherAgent(args);
+        }
+
+        private static int ParseLocalArg(string[] args)
+        {
+            if (args[0] == "--errorLog")
+            {
+                LogAgent logs = new LogAgent();
                 logs.DumpLogs();
 
                 return 0;
@@ -52,14 +53,14 @@ namespace MaxQuantTaskCore
             else if (args[0] == "--agent")
             {
                 Console.Out.WriteLine("Launching agent...");
-                ListenDaemon daemon = new ListenDaemon();
+                ConsumerAgent daemon = new ConsumerAgent();
                 daemon.Start();
 
                 return 0;
             }
             else if (args[0] == "--queue")
             {
-                QueueDaemon queue = new QueueDaemon();
+                QueueAgent queue = new QueueAgent();
                 queue.DumpQueue();
 
                 return 0;
@@ -71,23 +72,30 @@ namespace MaxQuantTaskCore
 
                 return 0;
             }
-            else if (args.Length < 3)
-            {
-                Console.Out.WriteLine("Argument not found. See --help");
-            }
 
+            Console.Out.WriteLine("MaxQuant-GRID v" + Assembly.GetEntryAssembly().GetName().Version);
+            Console.Out.WriteLine("--agent to start worker node agent");
+            Console.Out.WriteLine("--errorLog to dump error log");
+            Console.Out.WriteLine("--queue to dump error log");
+            Console.Out.WriteLine("--config to dump config");
+            return 0;
+        }
+
+        private static int StartPublisherAgent(string[] args)
+        {
             ProgramResult programResult;
-            AgentDaemon middleMan = new AgentDaemon();
+            PublisherAgent agent = new PublisherAgent();
 
-            middleMan.Start();
+            agent.Start();
 
-            if (args[6] == "70" && Config.Instance.PrepareSearchOverride != 0)
-            {
-                args[9] = Config.Instance.PrepareSearchOverride.ToString();
-            }
+            //if (args[6] == "70" && Config.Instance.PrepareSearchOverride != 0)
+            //{
+            //    args[9] = Config.Instance.PrepareSearchOverride.ToString();
+            //}
 
-            middleMan.SendCommand(args);
-            programResult = middleMan.WaitResult();
+            agent.SendCommand(args);
+            programResult = agent.WaitResult();
+            agent.Stop();
 
             Console.Error.Write(programResult.StdErr);
             Console.Out.Write(programResult.StdOut);
