@@ -8,7 +8,7 @@ namespace MaxQuantTaskCore.Agent
 {
     internal class ConsumerAgent : Agent
     {
-        private bool isShutdown = false;
+        private bool IsShutdown { get; set; }
 
         internal void Start()
         {
@@ -21,6 +21,7 @@ namespace MaxQuantTaskCore.Agent
 
         private void WaitForJobs()
         {
+            int idleTime = 0;
             while (true)
             {
                 BasicGetResult job = Channel.BasicGet(JobQueueName, false);
@@ -29,13 +30,20 @@ namespace MaxQuantTaskCore.Agent
                 int sleepMs = rand.Next(Config.ThrottleMin * 1000, Config.ThrottleMax * 1000);
 
                 Thread.Sleep(sleepMs);
+                idleTime += sleepMs / 1000;
 
                 if (job != null)
                 {
                     ProcessJob(job);
+                    idleTime = 0;
                 }
 
-                if (this.isShutdown)
+                if (Config.MaxIdleTime > 0 && idleTime > Config.MaxIdleTime)
+                {
+                    IsShutdown = true;
+                }
+
+                if (IsShutdown)
                 {
                     break;
                 }
@@ -63,11 +71,11 @@ namespace MaxQuantTaskCore.Agent
 
                 if (command == "SHUTDOWN")
                 {
-                    this.isShutdown = true;
+                    IsShutdown = true;
                     return;
                 }
 
-                ProgramResult result = this.Execute(command);
+                ProgramResult result = Execute(command);
 
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Out.WriteLine("Done.");
@@ -86,7 +94,7 @@ namespace MaxQuantTaskCore.Agent
             }
             finally
             {
-                if (!this.isShutdown)
+                if (!IsShutdown)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Out.WriteLine("Returning Result:");
@@ -130,7 +138,7 @@ namespace MaxQuantTaskCore.Agent
             bool hadErrors = false;
             process.OutputDataReceived += (s, d) =>
             {
-                output.Append(d.Data);
+                _ = output.Append(d.Data);
             };
 
             // Capture error output
@@ -141,10 +149,10 @@ namespace MaxQuantTaskCore.Agent
                     hadErrors = !string.IsNullOrEmpty(d.Data);
                 }
 
-                errors.Append(d.Data);
+                _ = errors.Append(d.Data);
             };
 
-            process.Start();
+            _ = process.Start();
 
             // start listening on the stream
             process.BeginErrorReadLine();

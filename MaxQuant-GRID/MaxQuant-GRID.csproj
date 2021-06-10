@@ -64,6 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="bin\Install.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

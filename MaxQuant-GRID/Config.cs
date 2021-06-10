@@ -1,19 +1,20 @@
 ﻿using RabbitMQ.Client;
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace MaxQuantTaskCore
 {
     internal class Config
     {
-        private static Config instance = null;
+        private static Config instance;
 
         internal string ChannelPrefix { get; private set; } = "MQMP-";
         internal string JobQueueName { get; private set; } = "JobQueue";
         internal string ErrorLogName { get; private set; } = "ErrorLog";
         internal string HostName { get; private set; } = "localhost";
 
-        internal int PrepareSearchOverride { get; private set; } = 0;
+        internal int PrepareSearchOverride { get; private set; }
 
         internal int Port { get; private set; } = 5672;
 
@@ -25,11 +26,13 @@ namespace MaxQuantTaskCore
 
         internal IModel Channel { get; private set; }
 
-        internal int ThrottleMin { get; private set; } = 0;
+        internal int ThrottleMin { get; private set; }
 
-        internal int ThrottleMax { get; private set; } = 0;
+        internal int ThrottleMax { get; private set; }
 
         internal string LogDir { get; private set; }
+
+        internal int MaxIdleTime { get; private set; }
 
         private Config()
         {
@@ -58,7 +61,7 @@ namespace MaxQuantTaskCore
                         break;
 
                     case "rmq_port":
-                        Port = int.Parse(value);
+                        Port = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
 
                     case "rmq_prefix":
@@ -66,19 +69,23 @@ namespace MaxQuantTaskCore
                         break;
 
                     case "prepare_search_threads":
-                        PrepareSearchOverride = int.Parse(value);
+                        PrepareSearchOverride = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
 
                     case "throttle_min":
-                        ThrottleMin = int.Parse(value);
+                        ThrottleMin = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
 
                     case "throttle_max":
-                        ThrottleMax = int.Parse(value);
+                        ThrottleMax = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
 
                     case "log_dir":
                         LogDir = value;
+                        break;
+
+                    case "max_idle_time":
+                        MaxIdleTime = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
 
                     default:
