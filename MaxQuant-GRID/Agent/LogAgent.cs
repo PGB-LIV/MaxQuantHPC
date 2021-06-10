@@ -8,7 +8,7 @@ namespace MaxQuantTaskCore.Agent
     {
         internal void DumpLogs()
         {
-            this.Connect();
+            Connect();
 
             while (true)
             {

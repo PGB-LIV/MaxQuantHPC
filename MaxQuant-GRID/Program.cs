@@ -29,7 +29,7 @@ namespace MaxQuantTaskCore
         {
             if (Environment.GetEnvironmentVariable("MQG_CONFIG_PATH") == null)
             {
-                System.Console.Error.WriteLine("Error! You must set the environment MQG_CONFIG_PATH to the location of your settings.conf");
+                Console.Error.WriteLine("Error! You must set the environment MQG_CONFIG_PATH to the location of your settings.conf");
                 return 2;
             }
 

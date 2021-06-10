@@ -17,15 +17,14 @@
     <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>build/Release</OutputPath>
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>build/Debug</OutputPath>
-    <WarningLevel>5</WarningLevel>
-  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\.sonarlint\maxquant-grid\CSharp\SonarLint.xml" Link="SonarLint.xml" />
@@ -37,15 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="example\lsf\StartAgents.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="example\lsf\StartRabbtMQ.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="example\lsf\SubmitMaxQuant.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="example\slurm\StartAgents.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -64,11 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\Install.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="bin\StartRabbitMQ.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="example\pbs\" />
   </ItemGroup>
 </Project>

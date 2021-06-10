@@ -9,8 +9,6 @@ namespace MaxQuantTaskCore
 
         private string Hostname { get; set; }
 
-        private string LogDir { get; set; }
-
         private int ProcessId { get; set; }
 
         private TextWriter LogFile { get; set; }
@@ -18,10 +16,18 @@ namespace MaxQuantTaskCore
         private Logger()
         {
             Hostname = System.Net.Dns.GetHostName();
-            LogDir = Config.Instance.LogDir;
+
             ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
 
-            LogFile = new StreamWriter(LogDir + Path.DirectorySeparatorChar + Hostname + "." + ProcessId + ".log");
+            if (Config.Instance.LogDir != null)
+            {
+                LogFile = new StreamWriter(Config.Instance.LogDir + Path.DirectorySeparatorChar + Hostname + "." + ProcessId + ".log");
+            }
+        }
+
+        internal void LogToStdOut()
+        {
+            LogFile = new StreamWriter(Console.OpenStandardOutput());
         }
 
         internal static Logger Instance
@@ -39,13 +45,22 @@ namespace MaxQuantTaskCore
 
         internal void Write(string text)
         {
+            if (LogFile == null)
+            {
+                return;
+            }
+
             LogFile.WriteLine("[" + DateTime.UtcNow.ToString() + "] " + text);
             LogFile.Flush();
         }
 
         ~Logger()
         {
-            LogFile.Close();
+            if (LogFile != null)
+            {
+                LogFile.Close();
+                LogFile = null;
+            }
         }
     }
 }
