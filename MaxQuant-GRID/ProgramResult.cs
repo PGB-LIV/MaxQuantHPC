@@ -1,4 +1,4 @@
-﻿namespace MaxQuantTaskCore
+﻿namespace MaxQuantHPC
 {
     internal class ProgramResult
     {

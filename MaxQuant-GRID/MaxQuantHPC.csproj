@@ -4,16 +4,16 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <CodeAnalysisRuleSet>MaxQuant-GRID.ruleset</CodeAnalysisRuleSet>
-    <StartupObject>MaxQuantTaskCore.Program</StartupObject>
+    <StartupObject>MaxQuantHPC.Program</StartupObject>
     <AssemblyName>MaxQuantTaskCore</AssemblyName>
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <Copyright>University of Liverpool</Copyright>
-    <PackageId>MaxQuant-GRID</PackageId>
+    <PackageId>MaxQuantHPC</PackageId>
     <Authors>Andrew Collins</Authors>
     <Company>University of Liverpool</Company>
-    <Product>MaxQuant-GRID</Product>
+    <Product>MaxQuantHPC</Product>
     <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 
@@ -46,7 +46,7 @@
     <None Update="example\lsf\SubmitMaxQuant.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="example\slurm\StartAgents.sh">
+    <None Update="example\slurm\StartAgent.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="example\slurm\StartRabbtMQ.sh">

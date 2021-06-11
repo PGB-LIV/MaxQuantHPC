@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 
-namespace MaxQuantTaskCore
+namespace MaxQuantHPC
 {
     internal class Logger
     {

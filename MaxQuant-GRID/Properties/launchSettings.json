@@ -1,7 +1,10 @@
 {
   "profiles": {
     "MaxQuantTaskCore": {
-      "commandName": "Executable"
+      "commandName": "Project",
+      "environmentVariables": {
+        "MQG_CONFIG_PATH": "config/default.conf"
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
-﻿using MaxQuantTaskCore.Agent;
+﻿using MaxQuantHPC.Agent;
 using System;
 using System.Reflection;
 
-namespace MaxQuantTaskCore
+namespace MaxQuantHPC
 {
     internal static class Program
     {

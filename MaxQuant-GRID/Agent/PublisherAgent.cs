@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-namespace MaxQuantTaskCore.Agent
+namespace MaxQuantHPC.Agent
 {
     internal class PublisherAgent : Agent
     {

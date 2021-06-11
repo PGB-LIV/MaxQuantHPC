@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace MaxQuantTaskCore.Agent
+namespace MaxQuantHPC.Agent
 {
     internal class LogAgent : Agent
     {
