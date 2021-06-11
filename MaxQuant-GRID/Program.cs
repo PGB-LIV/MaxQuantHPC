@@ -33,12 +33,7 @@ namespace MaxQuantTaskCore
                 return 2;
             }
 
-            if (args.Length < 3)
-            {
-                return ParseLocalArg(args);
-            }
-
-            return StartPublisherAgent(args);
+            return args.Length < 3 ? ParseLocalArg(args) : StartPublisherAgent(args);
         }
 
         private static int ParseLocalArg(string[] args)

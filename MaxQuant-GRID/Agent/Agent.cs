@@ -47,16 +47,16 @@ namespace MaxQuantTaskCore.Agent
 
             Channel.BasicQos(0, 1, false);
 
-            Channel.QueueDeclare(queue: JobQueueName, durable: false,
+            _ = Channel.QueueDeclare(queue: JobQueueName, durable: false,
               exclusive: false, autoDelete: false, arguments: null);
 
-            Channel.QueueDeclare(queue: ErrorLogName, durable: false,
+            _ = Channel.QueueDeclare(queue: ErrorLogName, durable: false,
               exclusive: false, autoDelete: false, arguments: null);
         }
 
         internal void Stop()
         {
-            this.Disconnect();
+            Disconnect();
         }
 
         protected void Disconnect()
@@ -68,16 +68,16 @@ namespace MaxQuantTaskCore.Agent
         {
             StringBuilder sbCmd = new StringBuilder();
 
-            sbCmd.Append('"');
-            sbCmd.Append(Config.MaxQuantTaskCorePath);
-            sbCmd.Append('"');
+            _ = sbCmd.Append('"');
+            _ = sbCmd.Append(Config.MaxQuantTaskCorePath);
+            _ = sbCmd.Append('"');
 
             foreach (string arg in args)
             {
-                sbCmd.Append(' ');
-                sbCmd.Append('"');
-                sbCmd.Append(arg);
-                sbCmd.Append('"');
+                _ = sbCmd.Append(' ');
+                _ = sbCmd.Append('"');
+                _ = sbCmd.Append(arg);
+                _ = sbCmd.Append('"');
             }
 
             return sbCmd.ToString();

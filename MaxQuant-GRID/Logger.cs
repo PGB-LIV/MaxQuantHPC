@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 
 namespace MaxQuantTaskCore
 {
     internal class Logger
     {
-        private static Logger instance = null;
+        private static Logger instance;
 
         private string Hostname { get; set; }
 
@@ -50,7 +51,7 @@ namespace MaxQuantTaskCore
                 return;
             }
 
-            LogFile.WriteLine("[" + DateTime.UtcNow.ToString() + "] " + text);
+            LogFile.WriteLine("[" + DateTime.UtcNow.ToString(CultureInfo.InvariantCulture) + "] " + text);
             LogFile.Flush();
         }
 

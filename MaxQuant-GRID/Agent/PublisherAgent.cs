@@ -1,5 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -30,8 +32,8 @@ namespace MaxQuantTaskCore.Agent
 
             IBasicProperties enqueueProperties = Channel.CreateBasicProperties();
 
-            this.CorrelationId = this.GetCorrelationId(Command);
-            this.ReplyChannelName = this.CreateReplyChannel(Command);
+            CorrelationId = GetCorrelationId(Command);
+            ReplyChannelName = CreateReplyChannel(Command);
 
             enqueueProperties.ReplyTo = ReplyChannelName;
             enqueueProperties.CorrelationId = CorrelationId;
@@ -105,7 +107,7 @@ namespace MaxQuantTaskCore.Agent
 
                 string correlationId = result.BasicProperties.CorrelationId;
 
-                if (correlationId != this.CorrelationId)
+                if (correlationId != CorrelationId)
                 {
                     Channel.BasicNack(result.DeliveryTag, false, true);
                     Logger.Instance.Write("Result Rejected. ID: " + correlationId);
@@ -128,8 +130,6 @@ namespace MaxQuantTaskCore.Agent
 
                 if (programResult.ExitCode != 0)
                 {
-                    // TODO: Set expires
-
                     Channel.BasicPublish(exchange: "", routingKey: ErrorLogName, body: result.Body);
                 }
 
@@ -141,7 +141,7 @@ namespace MaxQuantTaskCore.Agent
         {
             string replyChannelName = Config.ChannelPrefix + GetHash(ReplyKey, command);
 
-            Channel.QueueDeclare(queue: replyChannelName, durable: false,
+            _ = Channel.QueueDeclare(queue: replyChannelName, durable: false,
               exclusive: false, autoDelete: true, arguments: null);
 
             return replyChannelName;
@@ -164,7 +164,7 @@ namespace MaxQuantTaskCore.Agent
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
-                    sb.Append(hashBytes[i].ToString("X2"));
+                    _ = sb.Append(hashBytes[i].ToString("X2", CultureInfo.InvariantCulture));
                 }
 
                 return sb.ToString();

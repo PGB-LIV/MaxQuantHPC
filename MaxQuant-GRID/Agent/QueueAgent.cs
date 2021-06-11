@@ -8,7 +8,7 @@ namespace MaxQuantTaskCore.Agent
     {
         internal void DumpQueue()
         {
-            this.Connect();
+            Connect();
 
             BasicGetResult logEntry = Channel.BasicGet(JobQueueName, false);
 
