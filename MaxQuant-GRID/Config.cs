@@ -14,8 +14,6 @@ namespace MaxQuantTaskCore
         internal string ErrorLogName { get; private set; } = "ErrorLog";
         internal string HostName { get; private set; } = "localhost";
 
-        internal int PrepareSearchOverride { get; private set; }
-
         internal int Port { get; private set; } = 5672;
 
         internal string DotNetPath { get; private set; } = "dotnet";
@@ -33,6 +31,8 @@ namespace MaxQuantTaskCore
         internal string LogDir { get; private set; }
 
         internal int MaxIdleTime { get; private set; }
+
+        internal string ExecOnTask { get; private set; }
 
         private Config()
         {
@@ -68,10 +68,6 @@ namespace MaxQuantTaskCore
                         ChannelPrefix = value;
                         break;
 
-                    case "prepare_search_threads":
-                        PrepareSearchOverride = int.Parse(value, CultureInfo.InvariantCulture);
-                        break;
-
                     case "throttle_min":
                         ThrottleMin = int.Parse(value, CultureInfo.InvariantCulture);
                         break;
@@ -81,11 +77,20 @@ namespace MaxQuantTaskCore
                         break;
 
                     case "log_dir":
+                        if (value.Length == 0)
+                        {
+                            break;
+                        }
+
                         LogDir = value;
                         break;
 
                     case "max_idle_time":
                         MaxIdleTime = int.Parse(value, CultureInfo.InvariantCulture);
+                        break;
+
+                    case "exec_on_task":
+                        ExecOnTask = value;
                         break;
 
                     default:
@@ -122,10 +127,11 @@ namespace MaxQuantTaskCore
             Console.WriteLine("rmq_host\t" + HostName);
             Console.WriteLine("rmq_port\t" + Port);
             Console.WriteLine("rmq_prefix\t" + ChannelPrefix);
-            Console.WriteLine("prepare_search_threads\t" + PrepareSearchOverride);
             Console.WriteLine("throttle_min\t" + ThrottleMin);
             Console.WriteLine("throttle_max\t" + ThrottleMax);
             Console.WriteLine("log_dir\t" + LogDir);
+            Console.WriteLine("max_idle_time\t" + MaxIdleTime);
+            Console.WriteLine("exec_on_task\t" + ExecOnTask);
         }
     }
 }

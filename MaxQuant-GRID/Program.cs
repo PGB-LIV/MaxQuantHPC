@@ -88,11 +88,6 @@ namespace MaxQuantTaskCore
 
             agent.Start();
 
-            //if (args[6] == "70" && Config.Instance.PrepareSearchOverride != 0)
-            //{
-            //    args[9] = Config.Instance.PrepareSearchOverride.ToString();
-            //}
-
             agent.SendCommand(args);
             programResult = agent.WaitResult();
             agent.Stop();

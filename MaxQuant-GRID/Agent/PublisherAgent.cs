@@ -42,6 +42,52 @@ namespace MaxQuantTaskCore.Agent
             Channel.BasicPublish(exchange: "", routingKey: JobQueueName, basicProperties: enqueueProperties, body: commandBytes);
 
             Logger.Instance.Write("Sent.");
+
+            if (Config.ExecOnTask != null)
+            {
+                ExecuteTaskScript();
+            }
+        }
+
+        private void ExecuteTaskScript()
+        {
+            string[] var = Config.ExecOnTask.Split(' ', 2);
+
+            string command = var[0];
+            string args = "";
+            if (var.Length > 1)
+            {
+                args = var[1];
+            }
+            ProcessStartInfo startInfo = new ProcessStartInfo(command, args)
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            Process process = new Process
+            {
+                StartInfo = startInfo
+            };
+
+            process.OutputDataReceived += (s, d) =>
+            {
+                Logger.Instance.Write(d.Data);
+            };
+
+            // Capture error output
+            process.ErrorDataReceived += (s, d) =>
+            {
+                Logger.Instance.Write(d.Data);
+            };
+
+            _ = process.Start();
+
+            // start listening on the stream
+            process.BeginErrorReadLine();
+            process.BeginOutputReadLine();
+
+            process.WaitForExit();
         }
 
         internal ProgramResult WaitResult()
