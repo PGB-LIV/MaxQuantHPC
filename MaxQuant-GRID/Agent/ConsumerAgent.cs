@@ -59,6 +59,11 @@ namespace MaxQuantHPC.Agent
             IBasicProperties replyProperties = Channel.CreateBasicProperties();
             replyProperties.CorrelationId = properties.CorrelationId;
 
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Out.WriteLine("Job ID: ");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Out.WriteLine(replyProperties.CorrelationId);
             try
             {
                 string command = Encoding.UTF8.GetString(body);
