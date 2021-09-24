@@ -9,6 +9,8 @@ namespace MaxQuantHPC
     {
         private static Config instance;
 
+        internal string ConfigPathVarName { get; } = "MQHPC_CONFIG_PATH";
+
         internal string ChannelPrefix { get; private set; } = "MQMP-";
         internal string JobQueueName { get; private set; } = "JobQueue";
         internal string ErrorLogName { get; private set; } = "ErrorLog";
@@ -36,7 +38,7 @@ namespace MaxQuantHPC
 
         private Config()
         {
-            string configPath = Environment.GetEnvironmentVariable("MQG_CONFIG_PATH");
+            string configPath = Environment.GetEnvironmentVariable(ConfigPathVarName);
 
             string[] config = File.ReadAllLines(configPath);
 
@@ -119,7 +121,7 @@ namespace MaxQuantHPC
         internal void DumpConfig()
         {
             Console.WriteLine("==Environment Variables==");
-            Console.WriteLine("MQG_CONFIG_PATH\t" + Environment.GetEnvironmentVariable("MQG_CONFIG_PATH"));
+            Console.WriteLine(ConfigPathVarName + "\t" + Environment.GetEnvironmentVariable(ConfigPathVarName));
 
             Console.WriteLine("==Config Variables==");
             Console.WriteLine("runtimepath\t" + DotNetPath);

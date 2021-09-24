@@ -1,0 +1,30 @@
+﻿#!/bin/bash
+
+TEMPLATE_PATH=`dirname $BASH_SOURCE`
+TEMPLATE_PATH=`realpath $TEMPLATE_PATH`/../config/default.conf
+echo $TEMPLATE_PATH
+
+DEFAULT_PATH=`pwd`/`whoami`.conf
+
+printf "Config file path [$DEFAULT_PATH]:"
+read CONFIG_PATH
+
+if [ -z  "$CONFIG_PATH" ]; then
+        CONFIG_PATH=$DEFAULT_PATH
+fi
+
+printf "Config path selected: $CONFIG_PATH\n"
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+echo $SCRIPT_DIR
+
+if [ -f "$CONFIG_PATH" ]; then
+        printf "Config file found.\n"
+else
+        printf "Config file not found, creating from template.\n"
+        cp "$TEMPLATE_PATH" "$CONFIG_PATH"
+fi
+
+printf "To use this config file, add the path to the environment variable with:"
+printf "export MQHPC_CONFIG_PATH=$CONFIG_PATH"

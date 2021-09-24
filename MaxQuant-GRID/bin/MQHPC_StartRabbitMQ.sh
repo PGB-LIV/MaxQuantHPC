@@ -7,9 +7,6 @@ RESET=`tput sgr0`
 GOOD=`tput setaf 2`
 BAD=`tput setaf 1`
 
-mkdir -p var/lib/rabbitmq
-mkdir -p var/log/rabbitmq
-
 printf "Server hostname: "
 printf "$GOOD $HOSTNAME $RESET\n"
 
@@ -35,19 +32,34 @@ else
 fi
 
 printf "Config file: "
-if [ -f "$MQG_CONFIG_PATH" ]; then
+if [ -f "$MQHPC_CONFIG_PATH" ]; then
     printf "$GOOD OK $RESET\n"
 else
     printf "$BAD ERROR: Config file not found.\n"
     printf "Specify config file by setting system environment variable:\n"
-    printf "MQG_CONFIG_PATH=/path/to/my/config/settingsFile.conf\n\n"
-    printf "This value can be set in your job scheduler script or on the CLI prior to starting this script\n\n"
+    printf "MQHPC_CONFIG_PATH=/path/to/my/settings.conf\n\n"
+    printf "This value can be set in your job scheduler script or on the CLI prior to starting this script $RESET\n\n"
 
     exit 1
 fi
 
+printf "Data Dir: "
+if [ -z "$MQHPC_RABBIT_DIR" ]; then
+    printf "$BAD ERROR: Data directory not found.\n"
+    printf "Specify data directory by setting system environment variable:\n"
+    printf "MQHPC_RABBIT_DIR=/path/to/my/rabbit/data\n\n"
+    printf "This value can be set in your job scheduler script or on the CLI prior to starting this script $RESET\n\n"
+
+    exit 1
+else
+    printf "$GOOD OK $RESET\n"
+fi
+
+mkdir -p $MQHPC_RABBIT_DIR/var/lib/rabbitmq
+mkdir -p $MQHPC_RABBIT_DIR/var/log/rabbitmq
+
 printf "Starting instance: "
-singularity instance start --bind var/lib:/var/lib,var/lib/rabbitmq:/var/lib/rabbitmq,var/log:/var/log rabbitmq.sif rabbitmq
+singularity instance start --bind $MQHPC_RABBIT_DIR/var/lib:/var/lib,$MQHPC_RABBIT_DIR/var/lib/rabbitmq:/var/lib/rabbitmq,$MQHPC_RABBIT_DIR/var/log:/var/log rabbitmq.sif rabbitmq
 printf "$GOOD OK $RESET\n"
 
 sed -i -e '/rmq_host=/d' $MQG_CONFIG_PATH

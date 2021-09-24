@@ -10,7 +10,7 @@
 module load dotnet
 
 export MaxQuantBinDir=/path/to/MaxQuant/bin
-export MQG_CONFIG_PATH=/path/to/settings.conf
+export MQHPC_CONFIG_PATH=/path/to/settings.conf
 
 dotnet $MaxQuantBinDir/MaxQuantTaskCore.dll --config
 

@@ -2,8 +2,8 @@
 
 cd "$(dirname "$0")"
 
-INSTALL_DIR=`pwd`/../bin
-INSTALL_DIR=`realpath $INSTALL_DIR`
+INSTALL_DIR=`pwd`/../../bin
+INSTALL_DIR=`realpath "$INSTALL_DIR"`
 RESET=`tput sgr0`
 GOOD=`tput setaf 2`
 BAD=`tput setaf 1`
@@ -60,15 +60,15 @@ fi
 
 printf "Installing for dotnet: "
 
-mv $INSTALL_DIR/MaxQuantTaskCore.dll $INSTALL_DIR/MaxQuantTaskCore.Original.dll
-mv $INSTALL_DIR/MaxQuantTaskCore.runtimeconfig.json $INSTALL_DIR/MaxQuantTaskCore.Original.runtimeconfig.json
+mv "$INSTALL_DIR/MaxQuantTaskCore.dll" "$INSTALL_DIR/MaxQuantTaskCore.Original.dll"
+mv "$INSTALL_DIR/MaxQuantTaskCore.runtimeconfig.json" "$INSTALL_DIR/MaxQuantTaskCore.Original.runtimeconfig.json"
 
-cp ../Newtonsoft.Json.dll $INSTALL_DIR
-cp ../RabbitMQ.Client.dll $INSTALL_DIR
-cp ../System.Threading.Channels.dll $INSTALL_DIR
-cp ../MaxQuantTaskCore.dll $INSTALL_DIR
-cp ../MaxQuantTaskCore.deps.json $INSTALL_DIR
-cp ../MaxQuantTaskCore.runtimeconfig.json $INSTALL_DIR
+cp ../Newtonsoft.Json.dll "$INSTALL_DIR"
+cp ../RabbitMQ.Client.dll "$INSTALL_DIR"
+cp ../System.Threading.Channels.dll "$INSTALL_DIR"
+cp ../MaxQuantTaskCore.dll "$INSTALL_DIR"
+cp ../MaxQuantTaskCore.deps.json "$INSTALL_DIR"
+cp ../MaxQuantTaskCore.runtimeconfig.json "$INSTALL_DIR"
 
 sed -i -e '/runtimepath=/d' ../config/default.conf
 sed -i -e '/taskpath=/d' ../config/default.conf

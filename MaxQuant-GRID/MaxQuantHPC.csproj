@@ -49,6 +49,9 @@
     <None Update="example\slurm\StartAgent.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="example\slurm\StartAgents.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="example\slurm\StartRabbtMQ.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -58,6 +61,9 @@
     <None Update="config\default.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="install\MQHPC_Install">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="rabbitmq\rabbitmq.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -65,10 +71,13 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="bin\Install.sh">
+    <ApplicationDefinition Include="bin\MQHPC_Init">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ApplicationDefinition>
+    <None Include="bin\MQHPC_Init">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="bin\StartRabbitMQ.sh">
+    <None Include="bin\MQHPC_StartRabbitMQ.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

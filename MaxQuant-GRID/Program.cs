@@ -27,9 +27,9 @@ namespace MaxQuantHPC
 
         private static int HandleArgs(string[] args)
         {
-            if (Environment.GetEnvironmentVariable("MQG_CONFIG_PATH") == null)
+            if (Environment.GetEnvironmentVariable(Config.Instance.ConfigPathVarName) == null)
             {
-                Console.Error.WriteLine("Error! You must set the environment MQG_CONFIG_PATH to the location of your settings.conf");
+                Console.Error.WriteLine("Error! You must set the environment " + Config.Instance.ConfigPathVarName + " to the location of your settings.conf");
                 return 2;
             }
 

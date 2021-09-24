@@ -2,8 +2,9 @@
   "profiles": {
     "MaxQuantTaskCore": {
       "commandName": "Project",
+      "commandLineArgs": "-config",
       "environmentVariables": {
-        "MQG_CONFIG_PATH": "config/default.conf"
+        "MQHPC_CONFIG_PATH": "config/default.conf"
       }
     }
   }
