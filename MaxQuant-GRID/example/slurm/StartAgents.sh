@@ -1,8 +1,8 @@
 ﻿#!/bin/bash -l
 
-#SBATCH -J MQG-Agents
-#SBATCH -o %j.%N.out
-#SBATCH -e %j.%N.err
+#SBATCH -J MQHPC-Agents
+#SBATCH -o slurm/agent-%j.%N.out
+#SBATCH -e slurm/agent-%j.%N.err
 
 # We recomend you set this higher than <numThreads> in mqpar.xml. E.g. numTheads+10
 #SBATCH --array=1-200
@@ -11,10 +11,10 @@
 #SBATCH --cpus-per-task=1
 
 module load dotnet
+module load maxquant-hpc
 
-export MaxQuantBinDir=/path/to/MaxQuant/bin
 export MQHPC_CONFIG_PATH=/path/to/settings.conf
 
-dotnet $MaxQuantBinDir/MaxQuantTaskCore.dll --config
+dotnet $MAXQUANT_BIN/MaxQuantTaskCore.dll --config
 
-dotnet $MaxQuantBinDir/MaxQuantTaskCore.dll --agent
+dotnet $MAXQUANT_BIN/MaxQuantTaskCore.dll --agent

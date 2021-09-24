@@ -15,8 +15,8 @@ if command -v dotnet &> /dev/null; then
     DOTNET_VERSION=`dotnet --version`
     DOTNET_VERSION=${DOTNET_VERSION:0:3}
     
-    if [ $DOTNET_VERSION != "2.1" ] && [ $DOTNET_VERSION != "2.2" ]; then
-        printf "$BAD ERROR: Incompatible dotnet version detected. Expected 2.1 or 2.2, found $DOTNET_VERSION $RESET\n"
+    if [ $DOTNET_VERSION != "3.1" ]; then
+        printf "$BAD ERROR: Incompatible dotnet version detected. Expected 3.1, found $DOTNET_VERSION $RESET\n"
     else
         printf "$GOOD $DOTNET_VERSION FOUND $RESET\n"
     fi
