@@ -44,7 +44,7 @@ namespace MaxQuantHPC
 
             foreach (string line in config)
             {
-                string[] pair = line.Trim().Split('=');
+                string[] pair = line.Trim().Split('=', 2);
                 string key = pair[0].Trim();
                 string value = pair[1].Trim();
 

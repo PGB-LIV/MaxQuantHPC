@@ -1,4 +1,4 @@
-﻿namespace MaxQuantHPC
+﻿namespace MaxQuantHPC.Agent
 {
     internal class ProgramResult
     {
