@@ -62,5 +62,5 @@ printf "Starting instance: "
 singularity instance start --bind $MQHPC_RABBIT_DIR/var/lib:/var/lib,$MQHPC_RABBIT_DIR/var/lib/rabbitmq:/var/lib/rabbitmq,$MQHPC_RABBIT_DIR/var/log:/var/log rabbitmq.sif rabbitmq
 printf "$GOOD OK $RESET\n"
 
-sed -i -e '/rmq_host=/d' $MQG_CONFIG_PATH
-echo "rmq_host=$HOSTNAME" >> $MQG_CONFIG_PATH
+sed -i -e '/rmq_host=/d' $MQHPC_CONFIG_PATH
+echo "rmq_host=$HOSTNAME" >> $MQHPC_CONFIG_PATH
