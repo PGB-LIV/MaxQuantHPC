@@ -1,1 +1,1 @@
-# MaxQuant-GRID
+# MaxQuantHPC
