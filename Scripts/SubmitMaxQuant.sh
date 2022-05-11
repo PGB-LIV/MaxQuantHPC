@@ -55,11 +55,11 @@ CPU_ARG="--cpus-per-task="
 ###################################
 ### Do not edit below this line ###
 ###################################
-MAX_THREADS=`sed -nr 's,<numThreads>([0-9]+)</numThreads>,\1,p' mqpar.xml  | xargs`
+MAX_THREADS=`sed -nr 's,<numThreads>([0-9]+)</numThreads>,\1,p' $MQPAR  | xargs`
 MAX_THREADS="${MAX_THREADS/$'\r'/}"
 
 IFS=","
-SINGLE_THREADED=("Configuring${IFS}Testing fasta files${IFS}Combining apl files for first search${IFS}Combining apl files for main search")
+SINGLE_THREADED=("Configuring${IFS}Testing fasta files${IFS}Combining apl files for first search${IFS}Combining apl files for main search${IFS}Combining second peptide files")
 unset IFS
 
 function SubmitJob() {
